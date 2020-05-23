@@ -32,31 +32,43 @@ It can:
 - Check for symptoms in the users and predict if they could be possibly infected with Corona Virus
 - Provides information on Covid-19 hospitals located in different states of India and different helpline numbers.
 
-### Integration of Medic and Telegram with Node-RED
+Creating a Telegram bot:
+1.After installing Telegram on a mobile phone of your choice, search for botFather.
+2.Once found, send a /newbot command and follow these instructions:
+i.Set a name.
+ii. Set a username.
+iii.Save the access token for future use.
+Creating a Telegram bot:https://developer.ibm.com/technologies/artificial-intelligence/tutorials/integrate-coversation-service-with-telegram-using-node-red/
 
-![Crisis Comms Architecture diagram](https://raw.githubusercontent.com/Call-for-Code/Solution-Starter-Kit-Communication-2020/master/images/Crisis-Comms-Architecture-Nodejs-WebServer.png)
+Creating and Configuring Node-RED instance:
+1.In the IBM Cloud dashboard search for Node-RED and then select it and create an instance.
+2.Name the instance as you want then create it. It can take up to 5 minutes for the instance to be ready.
+3.When you see the Running state click on Visit App URL.
+4.After going to your App URL follow the follow the instructions provided. You need to set Username and Password for accessing your Node-RED application. After setting your credentials you will be able to access the Node-RED interface.
+5. Select manage palette from the top right menu.
+6. At the manage palette menu click on the Install tab then search for telegram.
+7. Install node-red-contrib-telegrambot. After installation is completed close the palette menu.
+8. Search for telegram from the upper left filter section then drag and drop Telegram receiver and Telegram sender nodes.
+9. Double click on the Telegram receiver node and click on the pencil icon for configuring your bot credentials.
+10. Fill the bot-name and token fields according to the bot credentials you created earlier.
+11. In Telegram sender node select the bot credentials you created in Telegram receiver node.
+12. Now you have configured the Telegram part on Node-RED. You can test it by connecting the Telegram receiver node to the Telegram sender node.
+13. You can send a message to your bot on Telegram and it will echo the message you wrote. That’s because we forwarded the message payload directly to the Telegram sender.
+14. Now that bot interface is ready, let’s start the integration of Watson Assistant service. In the first part there was a Service Details page for the Assistant service. Go to that page and find the Connections tab.
+15. After opening the Connections tab, click on Create connection and find the Node-RED application you created, then make the connection.
+16. After making the connection go back to your Node-RED interface and search for conversation in the search bar in the upper left corner. After finding the conversation node just drag and drop it.
+17. We need 2 function nodes for preparing the message object in Json format. One is for preparing the message before sending it to the conversation node. The other one is for preparing the message before sending it to the Telegram sender node.
+18. Search for function in the upper right search bar as before, then drag and drop 2 function nodes. Name your function nodes Prepare1 and Prepare2.
+19. Click on Deploy button in the upper right, then test your application on Telegram.
+Finally your Node-RED workspace looks like this:
 
-1. User invokes a COVID-19 Telegram integration chatbot app and asks a question.
-2. Slack app calls the Watson Assistant service hosted in IBM Cloud.
-3. Watson Assistant uses natural language understanding and machine learning to extract entities and intents of the user question.
-4. Source COVID-19 FAQ information from trusted CDC data
-5. Watson Assistant invokes an OpenWhisk open source powered IBM Cloud Function.
-6. IBM Cloud Function calls the Watson Discovery service running in IBM Cloud.
-7. Watson Discovery scans news articles and responds with relevant articles.
-8. Watson Assistant invokes an OpenWhisk open source powered IBM Cloud Function.
-9. IBM Cloud Function calls the COVID-19 API to get statistics.
-10. Watson Assistant replies to the Slack application.
-11. Slack app displays the chat answer to the user.
 
-The bot can be accessed by searching for Almeida27 on Telegram app.
 
 ## Documents
 
 ### Trusted sources for COVID-19 information
 - [CDC COVID-19 FAQ](https://www.cdc.gov/coronavirus/2019-ncov/faq.html)
 - https://www.mohfw.gov.in/#
-- https://covid-19india-api.herokuapp.com/v2.0/helpline_numbers
-- https://api.rootnet.in/covid19-in/stats/latest
 
 ## Datasets
 - [covid19api](https://covid19api.com/)
@@ -68,8 +80,6 @@ The bot can be accessed by searching for Almeida27 on Telegram app.
 - [IBM Watson Assistant](https://www.ibm.com/cloud/watson-assistant/)
 - [Watson Discovery](https://www.ibm.com/cloud/watson-discovery)
 - [IBM Cloud Functions](https://cloud.ibm.com/functions/)
-- [Continuous Delivery](https://cloud.ibm.com/services/continuous-delivery/)
-- [Node-RED](https://cloud.ibm.com/developer/appservice/apps)
 
 ### Open source technology
 - [Node.js](https://nodejs.org/en/)
@@ -79,7 +89,7 @@ Medic is populated with data that is sourced from the following resources:
 
 - Most static responses provide information found on the CDC's COVID FAQ Page: https://www.cdc.gov/coronavirus/2019-ncov/faq.html
 - Dynamic infection and death counts are sourced from Johns Hopkins University via the following API: https://www.covid19api.com/
-- Dynamic infection and death counts of Indian states are sourced from Ministry of Health and Family Welfare Page: https://api.rootnet.in/covid19-in/stats/latest
-- Helpline numbers for Indian States Page: https://covid-19india-api.herokuapp.com/v2.0/helpline_numbers
+- Dynamic infection and death counts(India) are sourced from Ministry of Health and Family Welfare Page:https://www.mohfw.gov.in/#
+- Dynamic news stories are sourced from Watson Discovery's news feed. Additional information on that service can be found here: https://www.ibm.com/watson/services/discovery-news/
 
 
